@@ -8,7 +8,7 @@ export interface Hashrates {
 
 export async function createHashratesCollection() {
   try {
-    global.hashratesCollection = await global.db.createCollection<Hashrates>(HASHRATES_COLLECTION);
+    global.hashratesCollection = await global.db.createCollection(HASHRATES_COLLECTION);
   } catch (error) {
       console.error("Error creating collection:", error);
   }

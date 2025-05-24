@@ -8,7 +8,7 @@ export interface Block {
 
 export async function createBlocksCollection() {
   try {
-    global.blocksCollection = await global.db.createCollection<Block>(BLOCKS_COLLECTION);
+    global.blocksCollection = await global.db.createCollection(BLOCKS_COLLECTION)
   } catch (error) {
       console.error("Error creating collection:", error);
   }

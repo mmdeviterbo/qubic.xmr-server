@@ -1,0 +1,5 @@
+// Build config to only include ./src in the ./dist output
+{
+  "extends": "./tsconfig.json",
+  "include": ["src/**/*"]
+}
