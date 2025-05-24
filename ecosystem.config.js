@@ -2,7 +2,7 @@ module.exports = {
   apps : [{
     name   : "qubic-xmr-server",
     script : "./src/index.ts",
-    max_memory_restart: '500M',
+    max_memory_restart: '1G',
     instances: "max",
     exec_mode : "cluster",
     node_args: "-r dotenv/config",
