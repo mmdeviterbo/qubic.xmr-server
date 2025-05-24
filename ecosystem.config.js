@@ -1,7 +1,7 @@
 module.exports = {
   apps : [{
     name   : "qubic-xmr-server",
-    script : "./src/index.ts",
+    script : "node ./dist/index.js",
     instances: "max",
     exec_mode : "cluster",
     node_args: "-r dotenv/config",
