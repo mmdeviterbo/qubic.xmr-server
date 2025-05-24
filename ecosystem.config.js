@@ -3,6 +3,8 @@ module.exports = {
     name   : "qubic-xmr-server",
     script : "./src/index.ts",
     max_memory_restart: '500M',
+    instances: "max",
+    exec_mode : "cluster",
     node_args: "-r dotenv/config",
     args: "dotenv_config_path=./.env",
     watch : true,

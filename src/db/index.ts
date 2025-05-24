@@ -40,6 +40,7 @@ export const start = async(app: Express) => {
   } catch (e) {
     console.log("Error initializing database: ", e)
     await client.close();
+    process.exit(e ? 1 : 0);
   }
 }
 

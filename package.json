@@ -5,11 +5,11 @@
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx tsx --env-file=.env src/index.ts",
-    "start": "pm2 start ecosystem.config.js",
-    "logs": "pm2 flush && pm2 logs qubic-xmr-server --lines 50",
+    "start": "pm2-runtime start ecosystem.config.js --env production",
+    "start-dev": "pm2 start ecosystem.config.js",
+    "logs": "pm2 flush && pm2 logs qubic-xmr-server",
     "kill": "pm2 flush && pm2 kill",
-    "dev-pm2": "npm run start && npm run logs"
+    "dev-pm2": "npm run kill && npm run start-dev && npm run logs"
   },
   "keywords": [],
   "author": "",
