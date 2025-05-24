@@ -11,6 +11,7 @@
     "rootDir": "./src",
     "strictNullChecks": false,
     "types": ["node"],
+    "typeRoots": ["node_modules/@type"]
   },
   "include": ["global.d.ts","**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
