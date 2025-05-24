@@ -16,20 +16,21 @@ const client = new MongoClient(DB_URI, {
   }
 });
 
-export const getDB = async() => await client.db(QUBIC_DATABASE);
-
 export const start = async(app: Express) => {
   try {
     await client.connect();
-    const db = client.db(QUBIC_DATABASE);
-    await createBlocksCollection(db);
+    global.db = await client.db(QUBIC_DATABASE);
+    await createBlocksCollection();
     console.log("MongoDB connected ...")
 
     app.listen(PORT, () => {
       console.log(`Listening to port ${PORT}`);
+      if(process.send) {
+        process.send!('ready');
+      }
+      void saveHighestBlockFound();
     });
 
-    void saveHighestBlockFound();
   } catch (e) {
     console.log("Error initializing database")
     await client.close();

@@ -1,5 +1,5 @@
 import { Filter } from "mongodb";
-import { Block, getBlocksCollection } from "..";
+import { Block } from "..";
 import { getDateFromTimestamp } from "../../../../utils/date";
 
 export const updateOneBlock = async(params: Partial<Block>, body: Partial<Block>) => {
@@ -13,6 +13,5 @@ export const updateOneBlock = async(params: Partial<Block>, body: Partial<Block>
     _params.timestamp = { $regex: date }
   }
 
-  const blockCollection = await getBlocksCollection(); 
-  return await blockCollection.findOneAndUpdate(_params, { $set: body }, { returnDocument: "after" } );
+  return await global.blocksCollection.findOneAndUpdate(_params, { $set: body }, { returnDocument: "after" } );
 }

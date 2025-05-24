@@ -1,6 +1,5 @@
-import { Block, getBlocksCollection } from "..";
+import { Block } from "..";
 
 export const insertOneBlock = async(body: Block): Promise<string> => {
-  const blockCollection = await getBlocksCollection(); 
-  return (await blockCollection.insertOne(body))?.insertedId;
+  return (await global.blockCollection.insertOne(body))?.insertedId;
 }
