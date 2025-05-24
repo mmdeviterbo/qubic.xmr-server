@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npx tsx --env-file=.env src/index.ts",
-    "start": "pm2 start ecosystem.config.js --env development",
+    "start": "pm2 start ecosystem.config.js",
     "logs": "pm2 flush && pm2 logs qubic-xmr-server --lines 50",
     "kill": "pm2 flush && pm2 kill",
     "dev-pm2": "npm run start && npm run logs"
@@ -26,6 +26,7 @@
     "@types/node": "^22.15.21",
     "dotenv": "^16.5.0",
     "ts-node": "^10.9.2",
-    "tsx": "^4.19.4"
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
   }
 }
