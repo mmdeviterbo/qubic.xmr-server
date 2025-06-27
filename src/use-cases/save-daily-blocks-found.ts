@@ -31,10 +31,12 @@ const saveDailyBlocksFound = async() => {
     const { data: qubicXmrStats, status } = await axios.get(QUBIC_XMR_STATS_URL);
     if(status === 200) {
       const newBlocksFound: number = qubicXmrStats.pool_blocks_found;
+
       if(newBlocksFound > getBlockParams.block_found) {
+        const updatedTimestamp = new Date(qubicXmrStats.last_block_found*1000).toISOString()
         await updateOneBlock(
           { timestamp: getBlockParams.timestamp },
-          { block_found: newBlocksFound, epoch, timestamp: getBlockParams.timestamp }
+          { block_found: newBlocksFound, epoch, timestamp: updatedTimestamp }
         );
       }
     }
