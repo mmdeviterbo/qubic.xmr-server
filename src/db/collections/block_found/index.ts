@@ -4,6 +4,7 @@ export interface Block {
   _id?: string;
   block_found: number;
   timestamp: string; //2025-05-24T00:59:37.865Z
+  epoch: number;
 }
 
 export async function createBlocksCollection() {
