@@ -5,13 +5,9 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc -project tsconfig.build.json",
-    "start": "pm2 start ecosystem.config.js",
-    "start-dev": "pm2 start ecosystem.config.js",
-    "logs": "pm2 flush && pm2 logs qubic-xmr-server",
-    "kill": "pm2 flush && pm2 kill",
-    "delete": "pm2 delete all",
-    "dev-pm2": "npm run kill && npm run start-dev && npm run logs"
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "nodemon ./src/index.ts"
   },
   "keywords": [],
   "author": "",
@@ -20,13 +16,13 @@
     "axios": "^1.9.0",
     "express": "^5.1.0",
     "helmet": "^8.1.0",
-    "mongodb": "^6.16.0",
-    "pm2": "^6.0.6"
+    "mongodb": "^6.16.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.2",
-    "@types/node": "^22.15.21",
+    "@types/node": "^22.15.33",
     "dotenv": "^16.5.0",
+    "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3"

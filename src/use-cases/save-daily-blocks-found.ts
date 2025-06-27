@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Block } from "../db/collections/block_found";
-import { insertOneBlock } from './../db/collections/block_found/create/insertOneBlock';
+import { insertOneBlock } from '../db/collections/block_found/create/insertOneBlock';
 import { updateOneBlock } from '../db/collections/block_found/update/updateOneBlock';
 import { findOneBlock } from '../db/collections/block_found/get/findOneBlock';
 import { QUBIC_XMR_STATS_URL } from "../utils/constants";
@@ -12,7 +12,7 @@ const getBlockParams: Block = {
   timestamp: new Date().toISOString() //id per epoch, utc
 }
 
-const saveHighestBlockFound = async() => {
+const saveDailyBlocksFound = async() => {
   let todayBlockFound = await findOneBlock({ timestamp: getBlockParams.timestamp });
 
   if(!todayBlockFound) {
@@ -25,6 +25,8 @@ const saveHighestBlockFound = async() => {
   }
 
   setInterval(async() => {
+    console.log("Saving daily blocks: ", new Date().toISOString());
+
     const { data: qubicXmrStats, status } = await axios.get(QUBIC_XMR_STATS_URL);
     if(status === 200) {
       const newBlocksFound: number = qubicXmrStats.pool_blocks_found;
@@ -38,4 +40,4 @@ const saveHighestBlockFound = async() => {
   }, interval)
 }
 
-export default saveHighestBlockFound;
+export default saveDailyBlocksFound;

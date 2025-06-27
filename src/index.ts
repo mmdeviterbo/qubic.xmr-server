@@ -4,6 +4,7 @@ import { start } from "./db";
 import getDailyBlocksFound from "./use-cases/get-daily-blocks-found";
 import getHighestHashrate from "./use-cases/get-highest-hashrate";
 
+
 const app = express();
 app.use(helmet());
 app.use(express.json());

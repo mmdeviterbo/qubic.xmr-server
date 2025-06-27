@@ -1,7 +1,9 @@
+import 'dotenv/config'
+
 import { Express } from "express";
 import { MongoClient, ServerApiVersion } from "mongodb"
 
-import saveHighestBlockFound from "../use-cases/save-highest-block-found";
+import saveHighestBlockFound from "../use-cases/save-daily-blocks-found";
 import { QUBIC_DATABASE } from "../utils/constants";
 import { createBlocksCollection } from "./collections/block_found";
 import { createHashratesCollection } from "./collections/peak_hashrate";
@@ -20,6 +22,7 @@ const client = new MongoClient(DB_URI, {
 
 export const start = async(app: Express) => {
   try {
+
     await client.connect();
     global.db = await client.db(QUBIC_DATABASE);
     await createBlocksCollection();
@@ -40,7 +43,6 @@ export const start = async(app: Express) => {
   } catch (e) {
     console.log("Error initializing database: ", e)
     await client.close();
-    process.exit(e ? 1 : 0);
   }
 }
 

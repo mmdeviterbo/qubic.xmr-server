@@ -8,6 +8,8 @@ const interval = 1000 * 5;
 const saveHighestHashrate = async() => {
   let highestHashrateResponse = await findOneHashrate();
   setInterval(async() => {
+    console.log("Saving highest hashrates: ", new Date().toISOString());
+
     const { data: qubicXmrStats, status } = await axios.get(QUBIC_XMR_STATS_URL);
     if(status === 200) {
       if(qubicXmrStats?.pool_hashrate > highestHashrateResponse!.highest_hashrate ) {
