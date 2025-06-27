@@ -5,13 +5,14 @@ import { getDateFromTimestamp } from "../../../../utils/date";
 export const updateOneBlock = async(params: Partial<Block>, body: Partial<Block>) => {
   const _params: Filter<Block> = {} 
 
-  if(params._id) {
-    _params._id = params._id;
-  }
   if(params.timestamp) {
     const date = getDateFromTimestamp(params.timestamp)
     _params.timestamp = { $regex: date }
   }
 
-  return await global.blocksCollection.findOneAndUpdate(_params, { $set: body }, { returnDocument: "after" } );
+  return await global.blocksCollection.findOneAndUpdate(
+    _params,
+    { $set: body },
+    { returnDocument: "after", upsert: true }
+  );
 }

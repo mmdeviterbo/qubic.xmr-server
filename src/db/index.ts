@@ -5,9 +5,9 @@ import saveHighestBlockFound from "../use-cases/save-daily-blocks-found";
 import { QUBIC_DATABASE } from "../utils/constants";
 import { createBlocksCollection } from "./collections/block_found";
 import { createHashratesCollection } from "./collections/peak_hashrate";
-import saveHighestHashrate from "../use-cases/save-highest-hashrate";
+import saveHighestHashrate from "../use-cases/save-highest-hashrate-per-epoch";
 
-const DB_URI = process.env.DB_URI as string;
+const DB_URI = process.env.NODE_ENV === "production" ? process.env.DB_URI : process.env.DB_URI_LOCAL;
 const PORT = process.env.PORT || 3030;
 
 console.log("NODE_ENV: ", process.env.NODE_ENV);

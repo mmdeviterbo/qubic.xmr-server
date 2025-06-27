@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import { findAllBlocks } from "../db/collections/block_found/get/findAllBlocks";
+import { findAllBlocks } from "../db/collections/block_found/get/findAllBlock";
 
 const getDailyBlocksFound = async(req: Request, res: Response) => {
   try{

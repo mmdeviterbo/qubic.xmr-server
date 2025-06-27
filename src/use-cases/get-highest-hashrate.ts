@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
-import { findOneHashrate } from "../db/collections/peak_hashrate/get/findOne";
+import { findAllHashrates } from "../db/collections/peak_hashrate/get/findAllHashrates";
 
-const getHighestHashrate = async(req: Request, res: Response) => {
+const getHighestHashratePerEpoch = async(req: Request, res: Response) => {
   try{
-    const highestHashrate = await findOneHashrate();
-    res.status(200).json(highestHashrate)  
+    const hashratesPerEpoch = await findAllHashrates();
+    res.status(200).json(hashratesPerEpoch)  
   }catch(error) {
     res.status(400);
   }
 }
 
-export default getHighestHashrate;
+export default getHighestHashratePerEpoch;
