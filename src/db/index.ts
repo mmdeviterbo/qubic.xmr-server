@@ -1,5 +1,3 @@
-import 'dotenv/config'
-
 import { Express } from "express";
 import { MongoClient, ServerApiVersion } from "mongodb"
 
