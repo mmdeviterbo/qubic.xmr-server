@@ -10,7 +10,7 @@ export const findAllBlocks = async(params?: Partial<Block>) => {
     _params.timestamp = { $regex: date }
   }
 
-  const data = await global.blocksCollection.find(_params);
+  const data = await global.blocksCollection.find(_params).sort({ timestamp: 1 });
   const response = await data.toArray();
   
   return response;
