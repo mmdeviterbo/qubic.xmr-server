@@ -14,31 +14,32 @@ const saveDailyBlocksFound = async() => {
     const qubicLatestStats = await getQubicLatestStats()
     const epoch = qubicLatestStats?.data.epoch ?? 0;
 
-    const getBlockParams: Block = {
-      block_found: 0, //total blocks found as of today
-      timestamp: new Date().toISOString(), //id per epoch, utc,
-      epoch: 0,
-    }
+    const todayDate = new Date().toISOString();
+    let todayBlocksFoundResponse = (await findAllBlocks({ timestamp: todayDate }))?.[0];
 
-    let todayBlocksFoundResponse = (await findAllBlocks({ timestamp: getBlockParams.timestamp }))?.[0];
+    const { data: newStats } = await axios.get(QUBIC_XMR_STATS_URL);
+    const { last_block_found, pool_blocks_found: newBlocksFound } = newStats
+    const lastBlockFoundTimestamp = new Date(last_block_found*1000).toISOString()
+
+    //existing  
     if(todayBlocksFoundResponse?._id) {
-      getBlockParams.block_found = todayBlocksFoundResponse.block_found;
-      getBlockParams.timestamp = todayBlocksFoundResponse.timestamp; 
-      getBlockParams.epoch = epoch;
-    }
-
-    const { data: qubicXmrStats, status } = await axios.get(QUBIC_XMR_STATS_URL);
-    if(status === 200) {
-      const newBlocksFound: number = qubicXmrStats.pool_blocks_found;
-
-      if(newBlocksFound > getBlockParams.block_found) {
-        const updatedTimestamp = new Date(qubicXmrStats.last_block_found*1000).toISOString()
+      const currentBlocksFound = todayBlocksFoundResponse.block_found;
+      if(newBlocksFound > currentBlocksFound) {
         await updateOneBlock(
-          { timestamp: getBlockParams.timestamp },
-          { block_found: newBlocksFound, epoch, timestamp: updatedTimestamp }
+          { timestamp: lastBlockFoundTimestamp },
+          { block_found: newBlocksFound, epoch, timestamp: lastBlockFoundTimestamp }
         );
       }
     }
+
+    //non-existing
+    else {
+      await updateOneBlock(
+        { timestamp: todayDate },
+        { block_found: newBlocksFound, epoch, timestamp: todayDate }
+      );
+    }
+
   }, interval)
 }
 

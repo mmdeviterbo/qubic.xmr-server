@@ -49,5 +49,8 @@ export const start = async(app: Express) => {
   }
 }
 
-
-
+/**
+ * To connect to local mongodb: 
+ *  - brew services start mongodb-community
+ * 
+ */
