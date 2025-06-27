@@ -11,5 +11,7 @@ export const findAllBlocks = async(params?: Partial<Block>) => {
   }
 
   const data = await global.blocksCollection.find(_params);
-  return await data.toArray();
+  const response = await data.toArray();
+  
+  return response;
 }

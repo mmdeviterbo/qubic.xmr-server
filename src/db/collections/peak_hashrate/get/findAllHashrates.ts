@@ -5,6 +5,9 @@ export const findAllHashrates = async(epoch?: number) => {
   if(epoch) {
     params.epoch = epoch;
   }
+
   const data = await global.hashratesCollection.find(params);
-  return await data.toArray()
+  const response = await data.toArray();
+
+  return response;
 }

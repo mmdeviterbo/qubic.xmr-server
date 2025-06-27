@@ -1,5 +1,5 @@
 import axios from "axios";
-import { QUBIC_LATEST_STATS, QUBIC_XMR_STATS_URL } from "../utils/constants";
+import { QUBIC_XMR_STATS_URL } from "../utils/constants";
 import { findAllHashrates } from '../db/collections/peak_hashrate/get/findAllHashrates';
 import { updateOneHashrate } from '../db/collections/peak_hashrate/update/updateOne';
 import getQubicLatestStats from "./get-qubic-latest-stats";
@@ -13,9 +13,9 @@ const saveHighestHashrate = async() => {
     const { data: liveStats } = await getQubicLatestStats()
     const epoch = liveStats?.epoch ?? 0;
 
-    const highestHashrateResponse = await findAllHashrates(epoch)?.[0];
+    const highestHashrateResponse = (await findAllHashrates(epoch))?.[0];
     let highest_hashrate = 0;
-    if(highestHashrateResponse?._id) {
+    if(highestHashrateResponse) {
       highest_hashrate = highestHashrateResponse.highest_hashrate
     }
 

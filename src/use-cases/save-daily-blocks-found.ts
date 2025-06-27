@@ -7,7 +7,6 @@ import getQubicLatestStats from "./get-qubic-latest-stats";
 
 const interval = 1000 * 10;
 
-
 const saveDailyBlocksFound = async() => {
   setInterval(async() => {
     console.log("Saving daily blocks: ", new Date().toISOString());
