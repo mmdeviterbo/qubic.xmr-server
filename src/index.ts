@@ -12,4 +12,8 @@ app.use(express.json());
 app.get("/daily-blocks-found", getDailyBlocksFound);
 app.get("/highest-hashrate", getHighestHashrate);
 
-start(app);
+try {
+  start(app);
+} catch(e) {
+  console.log("Error ./src/index.ts: ", e);
+}
