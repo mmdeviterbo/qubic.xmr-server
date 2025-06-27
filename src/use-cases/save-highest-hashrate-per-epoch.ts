@@ -14,14 +14,14 @@ const saveHighestHashrate = async() => {
     const epoch = liveStats?.epoch ?? 0;
 
     const highestHashrateResponse = (await findAllHashrates(epoch))?.[0];
-    let highest_hashrate = 0;
+    let max_hashrate = 0;
     if(highestHashrateResponse) {
-      highest_hashrate = highestHashrateResponse.highest_hashrate
+      max_hashrate = highestHashrateResponse.max_hashrate
     }
 
     const { data: qubicXmrStats, status } = await axios.get(QUBIC_XMR_STATS_URL);
     if(status === 200) {
-      if(qubicXmrStats?.pool_hashrate > highest_hashrate) {
+      if(qubicXmrStats?.pool_hashrate > max_hashrate) {
         await updateOneHashrate(qubicXmrStats?.pool_hashrate, epoch);
       }
     }
