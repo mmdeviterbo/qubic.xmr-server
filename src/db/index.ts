@@ -8,7 +8,7 @@ import { createHashratesCollection } from "./collections/peak_hashrate";
 import saveHighestHashrate from "../use-cases/save-highest-hashrate";
 
 const DB_URI = process.env.DB_URI as string;
-const PORT = process.env.PORT as string;
+const PORT = process.env.PORT || 3030;
 
 console.log("NODE_ENV: ", process.env.NODE_ENV);
 console.log("DB_URI: ", DB_URI);
