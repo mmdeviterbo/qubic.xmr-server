@@ -15,7 +15,7 @@ const saveHighestHashrate = async() => {
 
     const highestHashrateResponse = (await findAllHashrates(epoch))?.[0];
     let max_hashrate = 0;
-    if(highestHashrateResponse) {
+    if(highestHashrateResponse?._id) {
       max_hashrate = highestHashrateResponse.max_hashrate
     }
 

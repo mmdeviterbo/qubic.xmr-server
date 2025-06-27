@@ -1,5 +1,4 @@
 import axios from "axios";
-import { Block } from "../db/collections/block_found";
 import { updateOneBlock } from '../db/collections/block_found/update/updateOneBlock';
 import { findAllBlocks } from '../db/collections/block_found/get/findAllBlock';
 import { QUBIC_XMR_STATS_URL } from "../utils/constants";
@@ -17,12 +16,12 @@ const saveDailyBlocksFound = async() => {
     const todayDate = new Date().toISOString();
     let todayBlocksFoundResponse = (await findAllBlocks({ timestamp: todayDate }))?.[0];
 
-    const { data: newStats } = await axios.get(QUBIC_XMR_STATS_URL);
+    const { data: newStats, status } = await axios.get(QUBIC_XMR_STATS_URL);
     const { last_block_found, pool_blocks_found: newBlocksFound } = newStats
     const lastBlockFoundTimestamp = new Date(last_block_found*1000).toISOString()
 
     //existing  
-    if(todayBlocksFoundResponse?._id) {
+    if(todayBlocksFoundResponse?._id && status === 200) {
       const currentBlocksFound = todayBlocksFoundResponse.block_found;
       if(newBlocksFound > currentBlocksFound) {
         await updateOneBlock(
@@ -39,7 +38,6 @@ const saveDailyBlocksFound = async() => {
         { block_found: newBlocksFound, epoch, timestamp: todayDate }
       );
     }
-
   }, interval)
 }
 
