@@ -10,6 +10,10 @@ import saveHighestHashrate from "../use-cases/save-highest-hashrate";
 const DB_URI = process.env.DB_URI as string;
 const PORT = process.env.PORT as string;
 
+console.log("DB_URI: ", DB_URI);
+console.log("PORT: ", PORT);
+
+
 const client = new MongoClient(DB_URI, {
   serverApi: {
     version: ServerApiVersion.v1,
