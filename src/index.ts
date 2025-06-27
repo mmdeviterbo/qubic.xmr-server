@@ -4,7 +4,7 @@ import cors from 'cors';
 import helmet from "helmet";
 import { start } from "./db";
 import getDailyBlocksFound from "./use-cases/get-daily-blocks-found";
-import getHighestHashrate from "./use-cases/get-highest-hashrate";
+import getMaxHashratePerEpoch from "./use-cases/get-highest-hashrate-per-epoch";
 import { CLIENT_LOCAL_URL, CLIENT_STG_URL, CLIENT_URL } from './utils/constants';
 
 const app = express();
@@ -23,7 +23,7 @@ app.use(cors({
 }))
 
 app.get("/daily-blocks-found", getDailyBlocksFound);
-app.get("/highest-hashrate", getHighestHashrate);
+app.get("/max-hashrates", getMaxHashratePerEpoch);
 
 try {
   start(app);

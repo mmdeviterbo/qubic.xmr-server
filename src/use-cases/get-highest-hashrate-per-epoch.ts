@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { findAllHashrates } from "../db/collections/peak_hashrate/get/findAllHashrates";
 
-const getHighestHashratePerEpoch = async(req: Request, res: Response) => {
+const getMaxHashratePerEpoch = async(req: Request, res: Response) => {
   try{
     const hashratesPerEpoch = await findAllHashrates();
     res.status(200).json(hashratesPerEpoch)
@@ -10,4 +10,4 @@ const getHighestHashratePerEpoch = async(req: Request, res: Response) => {
   }
 }
 
-export default getHighestHashratePerEpoch;
+export default getMaxHashratePerEpoch;
