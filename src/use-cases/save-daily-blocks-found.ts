@@ -13,8 +13,14 @@ const saveDailyBlocksFound = async() => {
     const qubicLatestStats = await getQubicLatestStats()
     const epoch = qubicLatestStats?.data.epoch ?? 0;
 
-    const todayDate = new Date().toISOString();
-    let todayBlocksFoundResponse = (await findAllBlocks({ timestamp: todayDate }))?.[0];
+    const now = new Date();
+    const todayDate = new Date(now);
+    if (now.getUTCHours() < 12) {
+      todayDate.setUTCDate(todayDate.getUTCDate() - 1);
+    }
+    const todayDateInISO = todayDate.toISOString();
+
+    let todayBlocksFoundResponse = (await findAllBlocks({ timestamp: todayDateInISO }))?.[0];
 
     const { data: newStats, status } = await axios.get(QUBIC_XMR_STATS_URL);
     const { last_block_found, pool_blocks_found: newBlocksFound } = newStats
@@ -34,8 +40,8 @@ const saveDailyBlocksFound = async() => {
     //non-existing
     else {
       await updateOneBlock(
-        { timestamp: todayDate },
-        { block_found: newBlocksFound, epoch, timestamp: todayDate }
+        { timestamp: todayDateInISO },
+        { block_found: newBlocksFound, epoch, timestamp: todayDateInISO }
       );
     }
   }, interval)
