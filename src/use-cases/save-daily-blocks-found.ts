@@ -23,16 +23,14 @@ const saveDailyBlocksFound = async() => {
     let todayBlocksFoundResponse = (await findAllBlocks({ timestamp: todayDateInISO }))?.[0];
 
     const { data: newStats, status } = await axios.get(QUBIC_XMR_STATS_URL);
-    const { last_block_found, pool_blocks_found: newBlocksFound } = newStats
-    const lastBlockFoundTimestamp = new Date(last_block_found*1000).toISOString()
+    const { pool_blocks_found: newBlocksFound } = newStats
 
     //existing  
     if(todayBlocksFoundResponse?._id && status === 200) {
-      const currentBlocksFound = todayBlocksFoundResponse.block_found;
-      if(newBlocksFound > currentBlocksFound) {
+      if(newBlocksFound > todayBlocksFoundResponse.block_found) {
         await updateOneBlock(
-          { timestamp: lastBlockFoundTimestamp },
-          { block_found: newBlocksFound, epoch, timestamp: lastBlockFoundTimestamp }
+          { timestamp: todayDateInISO },
+          { block_found: newBlocksFound, epoch, timestamp: todayDateInISO }
         );
       }
     }

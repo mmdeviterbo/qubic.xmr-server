@@ -13,6 +13,6 @@ export const updateOneBlock = async(params: Partial<Block>, body: Partial<Block>
   return await global.blocksCollection.findOneAndUpdate(
     _params,
     { $set: body },
-    { returnDocument: "after", upsert: true }
+    { upsert: true }
   );
 }
