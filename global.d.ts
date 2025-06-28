@@ -1,5 +1,5 @@
 import { Collection, Db } from "mongodb";
-import { Block } from "./src/db/collections/block_found";
+import { Block } from "./src/db/collections/blocks_found";
 import { Hashrates } from "./src/db/collections/peak_hashrate";
 
 declare global {

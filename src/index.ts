@@ -4,7 +4,7 @@ import cors from 'cors';
 import helmet from "helmet";
 
 import { start } from './db';
-import getAdvanceMiningStats from '@use-cases/events/get-advance-mining-stats';
+import { getAdvanceMiningStats, getAdvanceMiningStatsByEventStream } from '@use-cases/events/get-advance-mining-stats';
 import { CLIENT_LOCAL_URL, CLIENT_STG_URL, CLIENT_URL } from '@utils/constants';
 
 const app = express();
@@ -22,6 +22,7 @@ app.use(cors({
 }));
 
 app.get("/advance-mining-stats", getAdvanceMiningStats)
+app.get("/advance-mining-stats-event-stream", getAdvanceMiningStatsByEventStream)
 
 try {
   start(app);

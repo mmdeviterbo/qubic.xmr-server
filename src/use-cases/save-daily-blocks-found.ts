@@ -1,6 +1,6 @@
 import axios from "axios";
-import { updateOneBlock } from '../db/collections/block_found/update/updateOneBlock';
-import { findAllBlocks } from '../db/collections/block_found/get/findAllBlock';
+import { updateOneBlock } from '../db/collections/blocks_found/update/updateOneBlock';
+import { findAllBlocks } from '../db/collections/blocks_found/get/findAllBlocks';
 import { QUBIC_XMR_STATS_URL } from "../utils/constants";
 import getQubicLatestStats from "./get-qubic-latest-stats";
 
@@ -27,10 +27,10 @@ const saveDailyBlocksFound = async() => {
 
     //existing  
     if(todayBlocksFoundResponse?._id && status === 200) {
-      if(newBlocksFound > todayBlocksFoundResponse.block_found) {
+      if(newBlocksFound > todayBlocksFoundResponse.blocks_found) {
         await updateOneBlock(
           { timestamp: todayDateInISO },
-          { block_found: newBlocksFound, epoch, timestamp: todayDateInISO }
+          { blocks_found: newBlocksFound, epoch, timestamp: todayDateInISO }
         );
       }
     }
@@ -39,7 +39,7 @@ const saveDailyBlocksFound = async() => {
     else {
       await updateOneBlock(
         { timestamp: todayDateInISO },
-        { block_found: newBlocksFound, epoch, timestamp: todayDateInISO }
+        { blocks_found: newBlocksFound, epoch, timestamp: todayDateInISO }
       );
     }
   }, interval)
