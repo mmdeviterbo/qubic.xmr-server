@@ -8,6 +8,8 @@ export const getAdvanceMiningStatsByEventStream = async (req: Request, res: Resp
   res.setHeader('Connection', 'keep-alive');
 
   try {
+    console.log('Client connected from SSE -- getAdvanceMiningStats: ', new Date());
+
     let returnValue = "";
     const interval = setInterval(async() => {
       const dailyBlocks = await findAllBlocks();
@@ -18,7 +20,7 @@ export const getAdvanceMiningStatsByEventStream = async (req: Request, res: Resp
         returnValue = stringifiedJSON
         res.write(`data: ${stringifiedJSON}\n\n`);
       }
-    }, 6000);
+    }, 3000);
   
     req.on('close', () => {
       clearInterval(interval);
