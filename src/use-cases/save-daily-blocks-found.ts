@@ -32,6 +32,13 @@ const saveDailyBlocksFound = async() => {
           { timestamp: todayDateInISO },
           { blocks_found: newBlocksFound, epoch, timestamp: todayDateInISO }
         );
+      } 
+
+      else if(todayBlocksFoundResponse.epoch !== epoch) {
+        await updateOneBlock(
+          { timestamp: todayDateInISO },
+          { blocks_found: newBlocksFound, epoch, timestamp: todayDateInISO }
+        );
       }
     }
 
