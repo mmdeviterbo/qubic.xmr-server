@@ -14,7 +14,7 @@ app.use(express.json());
 const allowedOrigins = [CLIENT_URL, CLIENT_STG_URL, CLIENT_LOCAL_URL];
 app.use(cors({
   origin: (origin, callback) => {
-    if (allowedOrigins.includes(origin)) {
+    if (!origin || allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
     return callback(new Error('Pay me first mdfckr coz i pay fees'));
