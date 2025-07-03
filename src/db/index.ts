@@ -11,9 +11,6 @@ const DB_URI = process.env.NODE_ENV === "production" ? process.env.DB_URI : proc
 const PORT = process.env.PORT || 3030;
 
 console.log("NODE_ENV: ", process.env.NODE_ENV);
-console.log("DB_URI: ", DB_URI);
-console.log("PORT: ", PORT);
-
 
 const client = new MongoClient(DB_URI, {
   serverApi: {
