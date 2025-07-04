@@ -10,8 +10,14 @@ const saveHighestHashrate = async() => {
   setInterval(async() => {
     console.log("Saving highest hashrates: ", new Date().toISOString());
 
-    const { data: liveStats } = await getQubicLatestStats()
-    const epoch = liveStats?.epoch ?? 0;
+    const data = await getQubicLatestStats()
+    let epoch = data?.data?.epoch ?? 0;
+    if(!epoch) {
+      const allHighestHashrates = await findAllHashrates();
+      console.log("Crash", allHighestHashrates.at(-1).epoch)
+
+      return allHighestHashrates.at(-1).epoch;
+    }
 
     const highestHashrateResponse = (await findAllHashrates(epoch))?.[0];
     let max_hashrate = 0;
