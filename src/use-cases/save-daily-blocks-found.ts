@@ -10,9 +10,6 @@ const saveDailyBlocksFound = async() => {
   setInterval(async() => {
     console.log("Saving daily blocks: ", new Date().toISOString());
   
-    const qubicLatestStats = await getQubicLatestStats()
-    const epoch = qubicLatestStats?.data.epoch ?? 0;
-
     const now = new Date();
     const todayDate = new Date(now);
     if (now.getUTCHours() < 12) {
@@ -24,6 +21,9 @@ const saveDailyBlocksFound = async() => {
 
     const { data: newStats, status } = await axios.get(QUBIC_XMR_STATS_URL);
     const { pool_blocks_found: newBlocksFound } = newStats
+
+    const qubicLatestStats = await getQubicLatestStats()
+    const epoch = qubicLatestStats?.data?.epoch ? qubicLatestStats?.data?.epoch : todayBlocksFoundResponse?.epoch;
 
     //existing  
     if(todayBlocksFoundResponse?._id && status === 200) {
