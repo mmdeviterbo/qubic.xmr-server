@@ -27,5 +27,6 @@ app.get("/advance-mining-stats-event-stream", getAdvanceMiningStatsByEventStream
 try {
   start(app);
 } catch(e) {
+  start(app);
   console.log("Error ./src/index.ts: ", e);
 }
